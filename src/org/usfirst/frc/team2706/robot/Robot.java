@@ -4,7 +4,6 @@ package org.usfirst.frc.team2706.robot;
 import org.usfirst.frc.team2706.robot.commands.ArcadeDriveWithJoystick;
 import org.usfirst.frc.team2706.robot.commands.AutomaticCameraControl;
 import org.usfirst.frc.team2706.robot.commands.StraightDriveWithEncoders;
-import org.usfirst.frc.team2706.robot.commands.StraightDriveWithTime;
 import org.usfirst.frc.team2706.robot.commands.TeleopPneumaticControl;
 import org.usfirst.frc.team2706.robot.commands.autonomous.BreachGoToTargetShootGyroAutonomous;
 import org.usfirst.frc.team2706.robot.commands.autonomous.BreachGoToTargetShootHybridAutonomous;
