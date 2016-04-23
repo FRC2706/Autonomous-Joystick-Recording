@@ -9,21 +9,39 @@ import edu.wpi.first.wpilibj.GenericHID;
 
 public class DriveWithRecordedJoystick extends ArcadeDriveWithJoystick {
 	
+	TeleopPneumaticControl operator = new TeleopPneumaticControl();
+	
 	private DriveWithRecordedJoystick(int joystickRecordingNumber) {
-		super(getDriverJoystick(joystickRecordingNumber));
+		super(getJoystick(joystickRecordingNumber, true));
+		operator.setJoystick(getJoystick(joystickRecordingNumber, false));
+		
 	}
 	
-	private static GenericHID getDriverJoystick(int joystickRecordingNumber) {
+	private static GenericHID getJoystick(int joystickRecordingNumber, boolean driver) {
 		File recordingLocation = new File(RecordArcadeDriveWithJoystick.PATH, joystickRecordingNumber+"");
 		File driverDatLocation = new File(recordingLocation, "driver.dat");
+		File operatorDatLocation = new File(recordingLocation, "operator.dat");
 		
-		GenericHID driverJoystick = Robot.oi.getDriverJoystick();
+		GenericHID recordedJoystick = driver ? Robot.oi.getDriverJoystick() : Robot.oi.getOperatorJoystick();
 		
-		if(recordingLocation.exists() && recordingLocation.isDirectory() &&
-				driverDatLocation.exists() && driverDatLocation.isFile()) {
-			 driverJoystick = RecordableJoystick.readFromFile(driverDatLocation);
+		if(recordingLocation.exists() && recordingLocation.isDirectory()) {
+			if(driverDatLocation.exists() && driverDatLocation.isFile() && driver)
+				recordedJoystick = RecordableJoystick.readFromFile(driverDatLocation);
+			if(operatorDatLocation.exists() && operatorDatLocation.isFile() && !driver)
+				recordedJoystick = RecordableJoystick.readFromFile(operatorDatLocation);
 		}
-		return driverJoystick;
+		return recordedJoystick;
 	}
 	
+	@Override
+	public void start() {
+		super.start();
+		operator.start();
+	}
+	
+	@Override
+	public void end() {
+		super.end();
+		operator.cancel();
+	}
 }

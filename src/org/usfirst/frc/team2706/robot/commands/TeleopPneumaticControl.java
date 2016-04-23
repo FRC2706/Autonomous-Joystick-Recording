@@ -3,6 +3,7 @@ package org.usfirst.frc.team2706.robot.commands;
 import org.usfirst.frc.team2706.robot.Robot;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TeleopPneumaticControl extends Command {
@@ -16,6 +17,8 @@ public class TeleopPneumaticControl extends Command {
 	public static final double SHOOT_SPEED = 1.0;
 	public static final double INTAKE_SPEED = 0.5;
 
+	private GenericHID joystick = Robot.oi.getOperatorJoystick();
+	
 	GetBall getBall = new GetBall(INTAKE_SPEED);
 	ShootBall shootBall = new ShootBall(SHOOT_SPEED);
 	ArmDown armDown = new ArmDown();
@@ -26,13 +29,13 @@ public class TeleopPneumaticControl extends Command {
 	}
 	@Override
 	protected void execute() {
-		boolean controlButtonA = Robot.oi.getOperatorJoystick().getRawButton(1);
-		boolean controlButtonB = Robot.oi.getOperatorJoystick().getRawButton(2);
-		boolean controlButtonX = Robot.oi.getOperatorJoystick().getRawButton(3);
-		boolean controlButtonY = Robot.oi.getOperatorJoystick().getRawButton(4);
-		boolean controlButtonLB = Robot.oi.getOperatorJoystick().getRawButton(5);
-		boolean controlButtonRB = Robot.oi.getOperatorJoystick().getRawButton(6);
-		double controlButtonRT = Robot.oi.getOperatorJoystick().getRawAxis(3);
+		boolean controlButtonA = joystick.getRawButton(1);
+		boolean controlButtonB = joystick.getRawButton(2);
+		boolean controlButtonX = joystick.getRawButton(3);
+		boolean controlButtonY = joystick.getRawButton(4);
+		boolean controlButtonLB = joystick.getRawButton(5);
+		boolean controlButtonRB = joystick.getRawButton(6);
+		double controlButtonRT = joystick.getRawAxis(3);
 		if(controlButtonLB) {
 			getBall = new GetBall(INTAKE_SPEED);
 			getBall.start();
@@ -95,6 +98,10 @@ public class TeleopPneumaticControl extends Command {
 	@Override
 	protected void interrupted() {
 		end();
+	}
+	
+	public void setJoystick(GenericHID joystick) {
+		this.joystick = joystick;
 	}
 
 }
