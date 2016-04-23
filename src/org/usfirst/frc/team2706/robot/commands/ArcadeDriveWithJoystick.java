@@ -1,6 +1,8 @@
 package org.usfirst.frc.team2706.robot.commands;
 
 import org.usfirst.frc.team2706.robot.Robot;
+
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -8,8 +10,16 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ArcadeDriveWithJoystick extends Command {
     
-    public ArcadeDriveWithJoystick() {
+	public final GenericHID joystick;
+	
+	public ArcadeDriveWithJoystick() {
+		this(Robot.oi.getDriverJoystick());
+	}
+	
+    public ArcadeDriveWithJoystick(GenericHID joystick) {
         requires(Robot.driveTrain);
+        
+        this.joystick = joystick;
     }
 
     // Called just before this Command runs the first time
@@ -19,7 +29,7 @@ public class ArcadeDriveWithJoystick extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.driveTrain.drive(Robot.oi.getDriverJoystick());
+        Robot.driveTrain.drive(joystick);
     }
 
     // Make this return true when this Command no longer needs to run execute()
