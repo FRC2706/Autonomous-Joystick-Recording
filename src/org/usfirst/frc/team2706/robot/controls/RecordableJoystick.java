@@ -6,14 +6,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 
-public class RecordableJoystick extends GenericHID {
+public class RecordableJoystick extends GenericHID implements Serializable {
 	
+	private static final long serialVersionUID = 3839966607929071901L;
+
 	public static void writeToFile(RecordableJoystick s, File file) {
 		try {
 			FileOutputStream fos = new FileOutputStream(file);
@@ -175,7 +178,7 @@ public class RecordableJoystick extends GenericHID {
 			}
 			
 			rawButton = new boolean[buttonMax];
-			for(int i = 0; i < buttonMax; i++) {
+			for(int i = 1; i < buttonMax; i++) {
 				rawButton[i] = current.getRawButton(i);
 			}
 			

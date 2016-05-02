@@ -13,16 +13,6 @@ public class RecordArcadeDriveWithJoystick extends ArcadeDriveWithJoystick {
 	private final RecordableJoystick recordingDriverJoystick;
 	private final RecordableJoystick recordingOperatorJoystick;
 	
-	@SuppressWarnings("unused")
-	private RecordArcadeDriveWithJoystick(GenericHID joystick) {
-		this(null, null);
-	}
-	
-	@SuppressWarnings("unused")
-	private RecordArcadeDriveWithJoystick() {
-		this(null, null);
-	}
-	
 	public RecordArcadeDriveWithJoystick(GenericHID driverJoystick, GenericHID operatorJoystick) {
 		super(driverJoystick);
 		

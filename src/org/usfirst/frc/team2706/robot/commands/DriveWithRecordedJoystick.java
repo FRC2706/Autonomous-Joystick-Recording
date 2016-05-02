@@ -11,7 +11,7 @@ public class DriveWithRecordedJoystick extends ArcadeDriveWithJoystick {
 	
 	TeleopPneumaticControl operator = new TeleopPneumaticControl();
 	
-	private DriveWithRecordedJoystick(int joystickRecordingNumber) {
+	public DriveWithRecordedJoystick(int joystickRecordingNumber) {
 		super(getJoystick(joystickRecordingNumber, true));
 		operator.setJoystick(getJoystick(joystickRecordingNumber, false));
 		

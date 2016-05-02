@@ -3,6 +3,7 @@ package org.usfirst.frc.team2706.robot;
 
 import org.usfirst.frc.team2706.robot.commands.ArcadeDriveWithJoystick;
 import org.usfirst.frc.team2706.robot.commands.AutomaticCameraControl;
+import org.usfirst.frc.team2706.robot.commands.DriveWithRecordedJoystick;
 import org.usfirst.frc.team2706.robot.commands.StraightDriveWithEncoders;
 import org.usfirst.frc.team2706.robot.commands.TeleopPneumaticControl;
 import org.usfirst.frc.team2706.robot.commands.autonomous.BreachGoToTargetShootGyroAutonomous;
@@ -72,9 +73,10 @@ public class Robot extends IterativeRobot {
         	/* position 7: breach fast     */	 new StraightDriveWithEncoders(0.85,15,25),
         	/* position 8: portcullis      */	 new PortCullisBreachPlay(),
         	/* position 9: cheval de frise */	 new ChevalDeFriseBreachPlay(),
-        	/* position 10: high goal      */	 new BreachGoToTargetShootHybridAutonomousHighGoal()
+        	/* position 10: high goal      */	 new BreachGoToTargetShootHybridAutonomousHighGoal(),
+        	/* position 11: premade joy    */	 new DriveWithRecordedJoystick(0)
         										);
-        	/* position 11 - 12 currently unused */
+        	/* position 12 currently unused */
         
         // TODO: we should move these to subsystem classes
         // and also use the RobotMap values

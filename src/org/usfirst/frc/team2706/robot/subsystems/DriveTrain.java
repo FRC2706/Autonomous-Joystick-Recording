@@ -2,7 +2,7 @@ package org.usfirst.frc.team2706.robot.subsystems;
 
 import org.usfirst.frc.team2706.robot.Robot;
 import org.usfirst.frc.team2706.robot.RobotMap;
-import org.usfirst.frc.team2706.robot.commands.ArcadeDriveWithJoystick;
+import org.usfirst.frc.team2706.robot.commands.RecordArcadeDriveWithJoystick;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -30,7 +30,7 @@ public class DriveTrain extends Subsystem {
 	private RobotDrive drive;
 	private Encoder left_encoder, right_encoder;
 	private AnalogInput rangefinder;
-	private AHRS gyro;
+	//private AHRS gyro;
 	
 	// TODO: maybe we don't need this
 	private GyroPIDSource gyroPIDSource;
@@ -73,10 +73,10 @@ public class DriveTrain extends Subsystem {
 		rangefinder = new AnalogInput(6);
 		
 		// Set up navX gyro
-		gyro = new AHRS(SPI.Port.kMXP);
+		/*gyro = new AHRS(SPI.Port.kMXP);
 		while(gyro.isCalibrating()) {
 			;
-		}
+		}*/
 		
 		gyroPIDSource = new GyroPIDSource(this);
 		
@@ -92,7 +92,7 @@ public class DriveTrain extends Subsystem {
 		LiveWindow.addSensor("Drive Train", "Left Encoder", left_encoder);
 		LiveWindow.addSensor("Drive Train", "Right Encoder", right_encoder);
 		LiveWindow.addSensor("Drive Train", "Rangefinder", rangefinder);
-		LiveWindow.addSensor("Drive Train", "Gyro", gyro);
+		//LiveWindow.addSensor("Drive Train", "Gyro", gyro);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class DriveTrain extends Subsystem {
 	 * using the Xbox joystick.
 	 */
 	public void initDefaultCommand() {
-		setDefaultCommand(new ArcadeDriveWithJoystick());
+		setDefaultCommand(new RecordArcadeDriveWithJoystick(Robot.oi.getDriverJoystick(), Robot.oi.getOperatorJoystick()));
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Right Distance", right_encoder.getDistance());
 		SmartDashboard.putNumber("Left Speed (RPM)", left_encoder.getRate());
 		SmartDashboard.putNumber("Right Speed (RPM)", right_encoder.getRate());
-		SmartDashboard.putNumber("Gyro", gyro.getAngle());
+		//SmartDashboard.putNumber("Gyro", gyro.getAngle());
 	}
 
 	/**
@@ -143,14 +143,14 @@ public class DriveTrain extends Subsystem {
 	 * Reset the robot gyro to the zero state.
 	 */
 	public void resetGyro() {
-		gyro.reset();
+	//	gyro.reset();
 	}
 	
 	/**
 	 * @return The robots heading in degrees.
 	 */
 	public double getHeading() {
-		return gyro.getAngle();
+		return 0;//return gyro.getAngle();
 	}
 	
 	/**
@@ -219,12 +219,13 @@ public class DriveTrain extends Subsystem {
 		
 		@Override
 		public void setPIDSourceType(PIDSourceType pidSource) {
-			driveTrain.gyro.setPIDSourceType(pidSource);
+//			driveTrain.gyro.setPIDSourceType(pidSource);
 		};
 
 		@Override
 		public PIDSourceType getPIDSourceType() {
-			return driveTrain.gyro.getPIDSourceType();
+//			return driveTrain.gyro.getPIDSourceType();
+			return null;
 		}
 
 		@Override
