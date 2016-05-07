@@ -51,7 +51,7 @@ public class RecordableJoystick extends GenericHID implements Serializable {
 		return null;
 	}
 
-	private GenericHID joystick;
+	private transient GenericHID joystick;
 	
 	private List<GenericHID> joystickStates = new ArrayList<>();
 	
@@ -75,7 +75,6 @@ public class RecordableJoystick extends GenericHID implements Serializable {
 	}
 	
 	public void cleanup() {
-		// Make sure this doesn't get deserialized
 		joystick = null;
 		
 		write = false;
